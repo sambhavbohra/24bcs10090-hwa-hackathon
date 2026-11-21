@@ -28,6 +28,7 @@ export default function Footer() {
             <h4>Stay</h4>
             <Link href="/#day">The day</Link>
             <Link href="/#why">Why Stay</Link>
+            <Link href="/#safe-use">Safe use</Link>
             <Link href="/#faq">FAQ</Link>
             <Link href="/cart">Cart</Link>
           </div>

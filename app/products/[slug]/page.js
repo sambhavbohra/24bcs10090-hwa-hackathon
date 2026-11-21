@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { products, getProductBySlug } from '@/lib/products';
+import { products, getProductBySlug, safetyGuide } from '@/lib/products';
 import ProductHero from '@/components/ProductHero';
 import ProductCard from '@/components/ProductCard';
 import Icon from '@/components/Icon';
@@ -78,6 +78,36 @@ export default async function ProductPage({ params }) {
                 ))}
               </dl>
             </div>
+          </section>
+
+          <section className="product-block safety-product-block">
+            <div className="safety-product-head reveal">
+              <p className="eyebrow">Safe use</p>
+              <h2>Set up the day carefully.</h2>
+              <p>{safetyGuide.intro}</p>
+            </div>
+
+            <div className="safety-grid">
+              {safetyGuide.checks.map((item, index) => (
+                <article
+                  className="safety-card reveal"
+                  key={item.title}
+                  style={{ '--d': `${index * 0.05}s` }}
+                >
+                  <span className="safety-index">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
+
+            <aside className="safety-warning reveal">
+              <span className="safety-warning-label">Please read</span>
+              <h3>{safetyGuide.warningTitle}</h3>
+              <p>{safetyGuide.warning}</p>
+            </aside>
           </section>
         </div>
 

@@ -5,6 +5,7 @@ const links = [
   { href: '/#day', label: 'The day' },
   { href: '/#range', label: 'Shop' },
   { href: '/#why', label: 'Why Stay' },
+  { href: '/#safe-use', label: 'Safe use' },
   { href: '/#faq', label: 'FAQ' },
 ];
 

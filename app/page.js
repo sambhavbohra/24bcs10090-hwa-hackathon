@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { products } from '@/lib/products';
+import { products, safetyGuide } from '@/lib/products';
 import EmotionCurve from '@/components/EmotionCurve';
 import ProductCard from '@/components/ProductCard';
 import SubscriptionBanner from '@/components/SubscriptionBanner';
@@ -11,7 +11,7 @@ const ticker = [
   'Your scent in the first bay',
   'Six timed moments',
   'Your voice before you return',
-  'Cold for 10+ hours',
+  'A 10-hour cold window',
 ];
 
 const phases = [
@@ -23,7 +23,7 @@ const phases = [
   {
     time: 'Mid-day',
     title: 'The long middle',
-    text: 'Boredom is not a bowl problem. Six different bays rotate through scent searches, puzzle discs and frozen chews, so there is always something small to look forward to.',
+    text: 'Boredom is not a bowl problem. Six different bays rotate through scent searches, puzzle discs and frozen licks, so there is always something small to look forward to.',
   },
   {
     time: 'Last 20 min',
@@ -60,7 +60,7 @@ const day = [
   {
     time: '15:30',
     bay: 'Bay 05',
-    title: 'Frozen chew',
+    title: 'Frozen lick',
     text: 'Something to hold and work through. The kind of quiet occupation that lasts.',
   },
   {
@@ -82,7 +82,7 @@ const why = [
   {
     icon: 'bowl',
     title: 'Real meals, not treats',
-    text: "Stay holds the dog's own measured daily food. You're relocating breakfast and dinner, not adding snacks.",
+    text: "Stay holds only the dog's own measured daily food. You're relocating breakfast and dinner, never adding treats on top.",
   },
   {
     icon: 'shirt',
@@ -104,11 +104,11 @@ const why = [
 const faqs = [
   {
     q: 'Does Stay add extra calories?',
-    a: "No. You load the dog's own measured daily food in the morning. Stay relocates breakfast and dinner across the day; it doesn't add treats.",
+    a: "No. Load only the dog's own measured daily food. Stay relocates breakfast and dinner across the day and never adds extra treats or toppers on top.",
   },
   {
     q: 'What kind of food can it hold?',
-    a: 'Fresh, wet, raw or dry. The frozen core wraps the drum and holds temperature for 10+ hours, so fresh food stays safe through a workday.',
+    a: 'Fresh, wet, raw or dry. Keep fresh and wet food within the 10-hour cold window, and discard anything uneaten at the end of the day.',
   },
   {
     q: 'How does it know what my dog ate?',
@@ -124,7 +124,15 @@ const faqs = [
   },
   {
     q: 'Is it hard to clean?',
-    a: 'The six trays lift out and are dishwasher-safe. The cold core refreezes overnight.',
+    a: 'Lift the six trays out and run them through the dishwasher. Wipe the drum weekly, then refreeze the cold core overnight.',
+  },
+  {
+    q: 'Is Stay suitable for every dog?',
+    a: 'Supervise the first few uses so you can see how your dog approaches the station. It is not suitable for dogs who chew through hard plastic.',
+  },
+  {
+    q: 'Can Stay treat separation anxiety?',
+    a: 'No. Stay is enrichment, not a treatment for severe separation anxiety. If your dog panics, destroys things or soils the home when left, seek advice from a vet or qualified behaviourist.',
   },
   {
     q: 'Can I buy the subscription on its own?',
@@ -179,7 +187,7 @@ export default function HomePage() {
                 <Icon name="check" size={16} /> No extra calories
               </li>
               <li>
-                <Icon name="check" size={16} /> Cold for 10+ hours
+                <Icon name="check" size={16} /> 10-hour cold window
               </li>
               <li>
                 <Icon name="check" size={16} /> Free shipping · 3–5 days
@@ -196,7 +204,7 @@ export default function HomePage() {
                 sizes="(max-width: 900px) 100vw, 48vw"
                 className="hero-photo-image"
               />
-              <div className="hero-photo-badge">10+ hours cold</div>
+              <div className="hero-photo-badge">10-hour cold window</div>
               <div className="hero-photo-card">
                 <span>Made for the hours alone</span>
                 <strong>Six moments. One calmer day.</strong>
@@ -282,7 +290,7 @@ export default function HomePage() {
               </p>
               <div className="day-badges">
                 <span>6 bays</span>
-                <span>10+ hrs cold</span>
+                <span>10-hour cold window</span>
                 <span>1 voice</span>
               </div>
             </div>
@@ -378,8 +386,8 @@ export default function HomePage() {
               <span>sealed bays</span>
             </div>
             <div>
-              <strong>10+ hrs</strong>
-              <span>cold core</span>
+              <strong>10 hrs</strong>
+              <span>cold window</span>
             </div>
             <div>
               <strong>1</strong>
@@ -390,6 +398,38 @@ export default function HomePage() {
               <span>extra calories</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section safety-section" id="safe-use">
+        <div className="wrap">
+          <div className="section-head center reveal">
+            <p className="eyebrow">Safe use</p>
+            <h2>A careful setup makes a better day.</h2>
+            <p className="lede">{safetyGuide.intro}</p>
+          </div>
+
+          <div className="safety-grid">
+            {safetyGuide.checks.map((item, index) => (
+              <article
+                className="safety-card reveal"
+                key={item.title}
+                style={{ '--d': `${index * 0.05}s` }}
+              >
+                <span className="safety-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <aside className="safety-warning reveal">
+            <span className="safety-warning-label">Please read</span>
+            <h3>{safetyGuide.warningTitle}</h3>
+            <p>{safetyGuide.warning}</p>
+          </aside>
         </div>
       </section>
 
