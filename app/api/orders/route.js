@@ -5,6 +5,7 @@ import {
   getProductBySlug,
   products,
   publicProduct,
+  resolveProductImage,
   resolveSelection,
   resolveUnitPrice,
   validateSelection,
@@ -186,6 +187,7 @@ export async function POST(request) {
       items.push({
         productId: product.id,
         name: product.name,
+        image: resolveProductImage(product, selection),
         variant: selection,
         variantLabel: variantLabel(product, selection),
         quantity,

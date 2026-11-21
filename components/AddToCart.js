@@ -10,9 +10,16 @@ import {
 } from '@/lib/products';
 import { useCart } from './CartProvider';
 
-export default function AddToCart({ product }) {
+export default function AddToCart({
+  product,
+  selection: controlledSelection,
+  onSelectionChange,
+}) {
   const { addItem } = useCart();
-  const [selection, setSelection] = useState(() => resolveSelection(product, {}));
+  const [internalSelection, setInternalSelection] = useState(() =>
+    resolveSelection(product, {})
+  );
+  const selection = controlledSelection ?? internalSelection;
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -27,7 +34,9 @@ export default function AddToCart({ product }) {
   );
 
   function choose(groupId, optionId) {
-    setSelection((value) => ({ ...value, [groupId]: optionId }));
+    const nextSelection = { ...selection, [groupId]: optionId };
+    if (onSelectionChange) onSelectionChange(nextSelection);
+    else setInternalSelection(nextSelection);
     setAdded(false);
   }
 
@@ -51,7 +60,7 @@ export default function AddToCart({ product }) {
               {group.options.map((option) => {
                 const active = selection[group.id] === option.id;
                 const showPrice =
-                  typeof option.price === 'number' && option.price !== product.price;
+                  typeof option.priceDelta === 'number' && option.priceDelta !== 0;
                 return (
                   <button
                     key={option.id}
@@ -64,7 +73,7 @@ export default function AddToCart({ product }) {
                       <span className="swatch" style={{ background: option.swatch }} />
                     ) : null}
                     <span>{option.label}</span>
-                    {showPrice ? <small>{formatINR(option.price)}</small> : null}
+                    {showPrice ? <small>+{formatINR(option.priceDelta)}</small> : null}
                   </button>
                 );
               })}

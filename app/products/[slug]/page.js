@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { products, getProductBySlug } from '@/lib/products';
-import ProductArt from '@/components/ProductArt';
-import AddToCart from '@/components/AddToCart';
+import ProductHero from '@/components/ProductHero';
 import ProductCard from '@/components/ProductCard';
 import Icon from '@/components/Icon';
 
@@ -16,7 +15,7 @@ export async function generateMetadata({ params }) {
   if (!product) return { title: 'Not found' };
   return {
     title: product.name,
-    description: product.tagline,
+    description: product.shortDescription,
   };
 }
 
@@ -38,39 +37,7 @@ export default async function ProductPage({ params }) {
           <span>{product.name}</span>
         </nav>
 
-        <div className="product-hero">
-          <div className="product-visual">
-            <ProductArt art={product.art} />
-            {product.badge ? <span className="product-badge">{product.badge}</span> : null}
-          </div>
-
-          <div className="product-info">
-            <p className="eyebrow">{product.category}</p>
-            <h1>{product.name}</h1>
-            <p className="product-tagline">{product.tagline}</p>
-
-            <div className="product-price-row">
-              <span className="product-price">{product.displayPrice}</span>
-              <span className="product-stock">In stock · ships in 3–5 days</span>
-            </div>
-
-            <p className="product-desc">{product.description}</p>
-
-            <AddToCart product={product} />
-
-            <div className="product-trust">
-              <span>
-                <Icon name="check" size={16} /> 30-day trial
-              </span>
-              <span>
-                <Icon name="check" size={16} /> 1-year warranty
-              </span>
-              <span>
-                <Icon name="check" size={16} /> Free shipping
-              </span>
-            </div>
-          </div>
-        </div>
+        <ProductHero product={product} />
 
         <div className="product-sections">
           <section className="product-block">

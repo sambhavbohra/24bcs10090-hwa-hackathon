@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { formatINR } from '@/lib/products';
@@ -92,7 +93,18 @@ export default function OrderView({ orderId }) {
       <div className="order-items">
         {order.items.map((item) => (
           <div className="order-item" key={`${item.productId}-${item.variantLabel}`}>
-            <div>
+            {item.image ? (
+              <div className="order-item-image">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={64}
+                  height={64}
+                  sizes="64px"
+                />
+              </div>
+            ) : null}
+            <div className="order-item-info">
               <span className="order-item-name">{item.name}</span>
               {item.variantLabel ? (
                 <span className="order-item-variant">{item.variantLabel}</span>

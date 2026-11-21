@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { products } from '@/lib/products';
-import DayDial from '@/components/DayDial';
 import EmotionCurve from '@/components/EmotionCurve';
 import ProductCard from '@/components/ProductCard';
 import SubscriptionBanner from '@/components/SubscriptionBanner';
@@ -187,7 +187,21 @@ export default function HomePage() {
             </ul>
           </div>
           <div className="hero-visual">
-            <DayDial />
+            <div className="hero-photo">
+              <Image
+                src="/images/lifestyle.jpg"
+                alt="Stay Station beside a resting dog at home"
+                fill
+                preload
+                sizes="(max-width: 900px) 100vw, 48vw"
+                className="hero-photo-image"
+              />
+              <div className="hero-photo-badge">10+ hours cold</div>
+              <div className="hero-photo-card">
+                <span>Made for the hours alone</span>
+                <strong>Six moments. One calmer day.</strong>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const INK = '#22333F';
 const INK_2 = '#2E4756';
 const INK_3 = '#16232C';
@@ -306,11 +308,28 @@ const ART = {
   subscription: SubscriptionArt,
 };
 
-export default function ProductArt({ art = 'station', className = '' }) {
+export default function ProductArt({
+  art = 'station',
+  image,
+  alt = 'Stay product',
+  sizes = '(max-width: 620px) 100vw, (max-width: 1024px) 50vw, 42vw',
+  className = '',
+}) {
   const Component = ART[art] || StationArt;
   return (
     <div className={`product-art-inner ${className}`.trim()}>
-      <Component />
+      {image ? (
+        <Image
+          src={image}
+          alt={alt}
+          width={640}
+          height={640}
+          sizes={sizes}
+          className="product-image"
+        />
+      ) : (
+        <Component />
+      )}
     </div>
   );
 }

@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { formatINR } from '@/lib/products';
+import { formatINR, resolveProductImage } from '@/lib/products';
 import { useCart } from './CartProvider';
+import ProductArt from './ProductArt';
 
 const initialForm = {
   name: '',
@@ -212,7 +213,15 @@ export default function CheckoutForm() {
         <div className="checkout-items">
           {items.map((item) => (
             <div className="checkout-item" key={item.key}>
-              <div>
+              <div className="checkout-item-image">
+                <ProductArt
+                  art={item.product.art}
+                  image={resolveProductImage(item.product, item.selection)}
+                  alt={item.product.name}
+                  sizes="56px"
+                />
+              </div>
+              <div className="checkout-item-info">
                 <span className="checkout-item-name">{item.product.name}</span>
                 {item.label ? <span className="checkout-item-variant">{item.label}</span> : null}
                 <span className="checkout-item-qty">Qty {item.quantity}</span>

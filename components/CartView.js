@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { formatINR } from '@/lib/products';
+import { formatINR, resolveProductImage } from '@/lib/products';
 import { useCart } from './CartProvider';
 import ProductArt from './ProductArt';
 
@@ -16,7 +16,12 @@ export default function CartView() {
     return (
       <div className="empty-card">
         <div className="empty-art">
-          <ProductArt art="station" />
+          <ProductArt
+            art="station"
+            image="/images/station-hero.jpg"
+            alt="Stay Station"
+            sizes="320px"
+          />
         </div>
         <h2>Your cart is quiet.</h2>
         <p>
@@ -36,7 +41,12 @@ export default function CartView() {
         {items.map((item) => (
           <div className="cart-item" key={item.key}>
             <div className="cart-thumb">
-              <ProductArt art={item.product.art} />
+              <ProductArt
+                art={item.product.art}
+                image={resolveProductImage(item.product, item.selection)}
+                alt={item.product.name}
+                sizes="108px"
+              />
             </div>
             <div className="cart-info">
               <Link href={`/products/${item.product.slug}`} className="cart-name">
