@@ -14,7 +14,7 @@ const product = products.find((item) => item.id === 'refill-subscription');
 
 export default function SubscriptionBanner() {
   const { addItem } = useCart();
-  const [billing, setBilling] = useState('monthly');
+  const [billing, setBilling] = useState(product.defaultSelection.billing);
   const [scent, setScent] = useState('forest');
   const [added, setAdded] = useState(false);
 

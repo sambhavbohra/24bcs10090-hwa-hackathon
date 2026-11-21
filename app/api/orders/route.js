@@ -74,7 +74,7 @@ export async function OPTIONS() {
 export async function GET() {
   return json({
     ok: true,
-    endpoint: 'POST /api/orders',
+    endpoint: 'POST /api/order (or /api/orders)',
     currency: CURRENCY,
     accepts: {
       items: [
@@ -95,7 +95,7 @@ export async function GET() {
         notes: 'Leave with the guard',
       },
     },
-    note: 'Prices are always recalculated on the server from lib/products.js. Variants are optional; the first option is used when a variant is omitted.',
+    note: 'Prices are always recalculated on the server from lib/products.js. Variants are optional; the product default is used when a variant is omitted.',
     products: products.map(publicProduct),
   });
 }

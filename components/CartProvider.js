@@ -148,8 +148,12 @@ export default function CartProvider({ children }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
+export function useOptionalCart() {
+  return useContext(CartContext);
+}
+
 export function useCart() {
   const context = useContext(CartContext);
-  if (!context) throw new Error('useCart must be used inside CartProvider');
+  if (!context) throw new Error('useCart must be used within CartProvider');
   return context;
 }

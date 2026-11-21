@@ -5,34 +5,44 @@ import { formatINR, resolveProductImage } from '@/lib/products';
 import { useCart } from './CartProvider';
 import ProductArt from './ProductArt';
 
+function EmptyCart({ checking = false }) {
+  return (
+    <div className="empty-card" aria-busy={checking || undefined}>
+      <div className="empty-art">
+        <ProductArt
+          art="station"
+          image="/images/station-hero.jpg"
+          alt="Stay Station"
+          sizes="320px"
+        />
+      </div>
+      <h2>
+        {checking
+          ? 'Your cart is taking a quiet moment.'
+          : 'Your cart is ready when you are.'}
+      </h2>
+      <p>
+        {checking
+          ? 'We’re checking your cart now. You can head back to the shop in the meantime.'
+          : 'Nothing here yet. Head back to the shop and find a little more company for the hours ahead.'}
+      </p>
+      <Link href="/#range" className="btn btn-primary">
+        Back to shop
+      </Link>
+      {checking ? <span className="empty-status">Checking your cart…</span> : null}
+    </div>
+  );
+}
+
 export default function CartView() {
   const { items, subtotal, hydrated, setQuantity, removeItem } = useCart();
 
   if (!hydrated) {
-    return <div className="cart-loading">Loading your cart…</div>;
+    return <EmptyCart checking />;
   }
 
   if (!items.length) {
-    return (
-      <div className="empty-card">
-        <div className="empty-art">
-          <ProductArt
-            art="station"
-            image="/images/station-hero.jpg"
-            alt="Stay Station"
-            sizes="320px"
-          />
-        </div>
-        <h2>Your cart is quiet.</h2>
-        <p>
-          Add a Stay Station, or start with the Starter Bundle and give the first
-          day everything it needs.
-        </p>
-        <Link href="/#range" className="btn btn-primary">
-          Explore Stay
-        </Link>
-      </div>
-    );
+    return <EmptyCart />;
   }
 
   return (
