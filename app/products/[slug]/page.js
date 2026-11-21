@@ -1,0 +1,131 @@
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { products, getProductBySlug } from '@/lib/products';
+import ProductArt from '@/components/ProductArt';
+import AddToCart from '@/components/AddToCart';
+import ProductCard from '@/components/ProductCard';
+import Icon from '@/components/Icon';
+
+export function generateStaticParams() {
+  return products.map((product) => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
+  if (!product) return { title: 'Not found' };
+  return {
+    title: product.name,
+    description: product.tagline,
+  };
+}
+
+export default async function ProductPage({ params }) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
+  if (!product) notFound();
+
+  const related = products.filter((item) => item.id !== product.id).slice(0, 3);
+
+  return (
+    <section className="product-page">
+      <div className="wrap">
+        <nav className="breadcrumb" aria-label="Breadcrumb">
+          <Link href="/">Home</Link>
+          <span>/</span>
+          <Link href="/#range">Shop</Link>
+          <span>/</span>
+          <span>{product.name}</span>
+        </nav>
+
+        <div className="product-hero">
+          <div className="product-visual">
+            <ProductArt art={product.art} />
+            {product.badge ? <span className="product-badge">{product.badge}</span> : null}
+          </div>
+
+          <div className="product-info">
+            <p className="eyebrow">{product.category}</p>
+            <h1>{product.name}</h1>
+            <p className="product-tagline">{product.tagline}</p>
+
+            <div className="product-price-row">
+              <span className="product-price">{product.displayPrice}</span>
+              <span className="product-stock">In stock · ships in 3–5 days</span>
+            </div>
+
+            <p className="product-desc">{product.description}</p>
+
+            <AddToCart product={product} />
+
+            <div className="product-trust">
+              <span>
+                <Icon name="check" size={16} /> 30-day trial
+              </span>
+              <span>
+                <Icon name="check" size={16} /> 1-year warranty
+              </span>
+              <span>
+                <Icon name="check" size={16} /> Free shipping
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="product-sections">
+          <section className="product-block">
+            <h2>Why it works</h2>
+            <div className="highlight-grid">
+              {product.highlights.map((highlight, index) => (
+                <article
+                  className="highlight-card reveal"
+                  key={highlight.title}
+                  style={{ '--d': `${index * 0.06}s` }}
+                >
+                  <h3>{highlight.title}</h3>
+                  <p>{highlight.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="product-block includes-block">
+            <div className="includes-col reveal">
+              <h2>In the box</h2>
+              <ul className="includes-list">
+                {product.includes.map((item) => (
+                  <li key={item}>
+                    <Icon name="check" size={16} /> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="details-col reveal">
+              <h2>The details</h2>
+              <dl className="detail-list">
+                {product.details.map((detail) => (
+                  <div key={detail.label}>
+                    <dt>{detail.label}</dt>
+                    <dd>{detail.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        </div>
+
+        <section className="related">
+          <div className="related-head">
+            <h2>Completes the day</h2>
+            <Link href="/#range">See all →</Link>
+          </div>
+          <div className="related-grid">
+            {related.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </section>
+  );
+}
