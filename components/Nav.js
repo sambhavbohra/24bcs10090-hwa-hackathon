@@ -65,6 +65,7 @@ export default function Nav() {
                 <path d="M6 8h12l-1 11H7L6 8Z" />
                 <path d="M9 8V6a3 3 0 0 1 6 0v2" />
               </svg>
+              <span className="cart-label">Cart</span>
               {hydrated && count > 0 ? <span className="cart-count">{count}</span> : null}
             </Link>
             <button

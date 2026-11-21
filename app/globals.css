@@ -395,17 +395,26 @@ p {
 
 .cart-btn {
   position: relative;
-  width: 44px;
+  min-width: 44px;
   height: 44px;
-  border-radius: 50%;
+  padding: 0 14px;
+  border-radius: 999px;
   border: 1px solid var(--line-2);
   background: rgba(255, 255, 255, 0.55);
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   color: var(--ink-2);
+  font-size: 0.86rem;
+  font-weight: 600;
   transition:
     background 0.2s,
     transform 0.2s;
+}
+
+.cart-label {
+  line-height: 1;
 }
 
 .cart-btn:hover {
