@@ -4,6 +4,7 @@ import { products, safetyGuide } from '@/lib/products';
 import EmotionCurve from '@/components/EmotionCurve';
 import ProductCard from '@/components/ProductCard';
 import SubscriptionBanner from '@/components/SubscriptionBanner';
+import DogMatchQuiz from '@/components/DogMatchQuiz';
 import Icon from '@/components/Icon';
 
 const ticker = [
@@ -352,6 +353,8 @@ export default function HomePage() {
           <SubscriptionBanner />
         </div>
       </section>
+
+      <DogMatchQuiz />
 
       <section className="section why-section" id="why">
         <div className="wrap">
