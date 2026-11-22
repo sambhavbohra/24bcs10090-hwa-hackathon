@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   formatINR,
   resolveSelection,
@@ -33,6 +33,12 @@ export default function AddToCart({
     [product, selection]
   );
 
+  useEffect(() => {
+    if (!added) return undefined;
+    const timer = window.setTimeout(() => setAdded(false), 2400);
+    return () => window.clearTimeout(timer);
+  }, [added]);
+
   function choose(groupId, optionId) {
     const nextSelection = { ...selection, [groupId]: optionId };
     if (onSelectionChange) onSelectionChange(nextSelection);
@@ -43,7 +49,6 @@ export default function AddToCart({
   function handleAdd() {
     addItem(product.id, selection, quantity);
     setAdded(true);
-    window.setTimeout(() => setAdded(false), 2400);
   }
 
   return (
