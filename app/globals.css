@@ -2756,6 +2756,25 @@ p {
   min-height: 92px;
 }
 
+.field.has-error input,
+.field.has-error textarea {
+  border-color: #e0a08f;
+  background: #fdf4f1;
+}
+
+.field.has-error input:focus,
+.field.has-error textarea:focus {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 4px rgba(224, 121, 92, 0.18);
+}
+
+.field-error {
+  color: #9c3b23;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 .form-note {
   background: var(--bg);
   border: 1px solid var(--line);
