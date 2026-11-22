@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
           <div>
             <h4>Contact</h4>
-            <a href="mailto:hello@stay.dog">hello@stay.dog</a>
+            <a href="mailto:hwa@stay.in">hwa@stay.in</a>
             <span>Mon–Fri, 9–5 IST</span>
             <span>Free shipping · 3–5 days</span>
           </div>
