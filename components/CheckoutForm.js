@@ -215,7 +215,6 @@ export default function CheckoutForm() {
             <div className="checkout-item" key={item.key}>
               <div className="checkout-item-image">
                 <ProductArt
-                  art={item.product.art}
                   image={resolveProductImage(item.product, item.selection)}
                   alt={item.product.name}
                   sizes="56px"

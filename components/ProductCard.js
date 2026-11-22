@@ -7,7 +7,6 @@ export default function ProductCard({ product, className = '' }) {
     <Link href={`/products/${product.slug}`} className={`product-card ${className}`.trim()}>
       <div className="product-art">
         <ProductArt
-          art={product.art}
           image={product.image}
           alt={product.name}
           sizes="(max-width: 620px) 100vw, (max-width: 1024px) 50vw, 34vw"

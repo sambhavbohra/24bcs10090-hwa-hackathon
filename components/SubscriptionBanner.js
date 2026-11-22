@@ -33,7 +33,6 @@ export default function SubscriptionBanner() {
     <div className="sub-banner reveal">
       <div className="sub-art">
         <ProductArt
-          art="subscription"
           image={product.image}
           alt="Stay refill modules"
           sizes="(max-width: 1024px) 100vw, 38vw"

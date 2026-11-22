@@ -41,7 +41,6 @@ export default function ProductHero({ product }) {
     <div className="product-hero">
       <div className="product-visual">
         <ProductArt
-          art={product.art}
           image={image}
           alt={
             selectedImageOption

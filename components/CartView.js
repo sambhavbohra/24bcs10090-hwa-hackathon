@@ -10,7 +10,6 @@ function EmptyCart({ checking = false }) {
     <div className="empty-card" aria-busy={checking || undefined}>
       <div className="empty-art">
         <ProductArt
-          art="station"
           image="/images/station-hero.jpg"
           alt="Stay Station"
           sizes="320px"
@@ -52,7 +51,6 @@ export default function CartView() {
           <div className="cart-item" key={item.key}>
             <div className="cart-thumb">
               <ProductArt
-                art={item.product.art}
                 image={resolveProductImage(item.product, item.selection)}
                 alt={item.product.name}
                 sizes="108px"
