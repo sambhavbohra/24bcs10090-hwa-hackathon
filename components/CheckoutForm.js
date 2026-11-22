@@ -38,7 +38,7 @@ export default function CheckoutForm() {
     setError('');
 
     try {
-      const response = await fetch('/api/order', {
+      const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

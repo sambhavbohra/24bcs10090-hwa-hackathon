@@ -74,7 +74,7 @@ export async function OPTIONS() {
 export async function GET() {
   return json({
     ok: true,
-    endpoint: 'POST /api/order (or /api/orders)',
+    endpoint: 'POST /api/orders',
     currency: CURRENCY,
     accepts: {
       items: [
