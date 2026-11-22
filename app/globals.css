@@ -1750,6 +1750,63 @@ p {
   line-height: 1.45;
 }
 
+.match-colour-picker {
+  margin-top: 12px;
+}
+
+.match-colour-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.match-colour-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.match-colour-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink-2);
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.match-colour-option:hover {
+  border-color: var(--ink-2);
+  transform: translateY(-1px);
+}
+
+.match-colour-option.is-active {
+  border-color: var(--ink);
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.match-colour-swatch {
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(30, 45, 56, 0.14);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75);
+}
+
 .match-product-action {
   display: flex;
   flex-direction: column;

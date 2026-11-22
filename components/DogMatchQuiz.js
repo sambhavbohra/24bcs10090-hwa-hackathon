@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   formatINR,
   getProductById,
+  resolveProductImage,
   resolveUnitPrice,
 } from '@/lib/products';
 import Icon from './Icon';
@@ -148,6 +149,8 @@ const questions = [
 ];
 
 const bundle = getProductById('starter-bundle');
+const colourOptions =
+  bundle.variants.find((group) => group.id === 'colour')?.options || [];
 
 function answerFor(questionIndex, answerId) {
   return questions[questionIndex].options.find((option) => option.id === answerId);
@@ -170,6 +173,7 @@ export default function DogMatchQuiz() {
   const [step, setStep] = useState(0);
   const [view, setView] = useState('questions');
   const [answers, setAnswers] = useState({});
+  const [colour, setColour] = useState('oat');
   const [added, setAdded] = useState(false);
   const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -179,9 +183,9 @@ export default function DogMatchQuiz() {
   const selection = useMemo(
     () => ({
       size: answers.size === 'large' ? 'large' : 'small-medium',
-      colour: 'oat',
+      colour,
     }),
-    [answers.size]
+    [answers.size, colour]
   );
   const bundlePrice = useMemo(
     () => resolveUnitPrice(bundle, selection),
@@ -232,6 +236,7 @@ export default function DogMatchQuiz() {
     setAnswers({});
     setStep(0);
     setView('questions');
+    setColour('oat');
     setAdded(false);
     setIsOpen(true);
   }
@@ -423,8 +428,8 @@ export default function DogMatchQuiz() {
                   <div className="match-recommendation">
                     <div className="match-product-image">
                       <Image
-                        src={bundle.image}
-                        alt="Stay Starter Bundle"
+                        src={resolveProductImage(bundle, selection)}
+                        alt={`Stay Starter Bundle in ${colour}`}
                         fill
                         sizes="112px"
                       />
@@ -439,6 +444,39 @@ export default function DogMatchQuiz() {
                         Station, lick discs, scent cartridges, puzzle inserts and
                         cold core.
                       </p>
+                      <div className="match-colour-picker">
+                        <span className="match-colour-label">Colour</span>
+                        <div
+                          className="match-colour-options"
+                          role="group"
+                          aria-label="Choose bundle colour"
+                        >
+                          {colourOptions.map((option) => {
+                            const isActive = colour === option.id;
+                            return (
+                              <button
+                                type="button"
+                                className={`match-colour-option ${
+                                  isActive ? 'is-active' : ''
+                                }`}
+                                key={option.id}
+                                onClick={() => {
+                                  setColour(option.id);
+                                  setAdded(false);
+                                }}
+                                aria-pressed={isActive}
+                              >
+                                <span
+                                  className="match-colour-swatch"
+                                  style={{ background: option.swatch }}
+                                  aria-hidden="true"
+                                />
+                                <span>{option.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                     <div className="match-product-action">
                       <button
@@ -470,6 +508,7 @@ export default function DogMatchQuiz() {
                       setAnswers({});
                       setStep(0);
                       setView('questions');
+                      setColour('oat');
                       setAdded(false);
                     }}
                   >
